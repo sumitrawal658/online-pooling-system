@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PollSystem.Mobile.Views.PollListPage">
+    <Grid RowDefinitions="Auto,*">
+        <Label Text="Active Polls"
+               FontSize="24"
+               Margin="20,10"
+               FontAttributes="Bold"/>
+
+        <RefreshView Grid.Row="1"
+                    Command="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Polls}"
+                          SelectionMode="Single"
+                          SelectionChanged="OnPollSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="10,5" Padding="10">
+                            <StackLayout>
+                                <Label Text="{Binding Title}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding CreatedAt, StringFormat='Created: {0:d}'}"
+                                       TextColor="Gray"/>
+                                <Label Text="{Binding EndDate, StringFormat='Ends: {0:d}'}"
+                                       TextColor="Gray"
+                                       IsVisible="{Binding EndDate, Converter={StaticResource NullableDateConverter}}"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage> 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PollSystem.Mobile.Views.CommentsView">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Label Text="Comments"
+               FontSize="18"
+               FontAttributes="Bold"
+               Margin="10"/>
+
+        <RefreshView Grid.Row="1"
+                    Command="{Binding LoadCommentsCommand}"
+                    IsRefreshing="{Binding IsBusy}">
+            <CollectionView ItemsSource="{Binding Comments}">
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center"
+                               VerticalOptions="Center">
+                        <Label Text="No comments yet"
+                               TextColor="Gray"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                             BackgroundColor="Red"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type local:CommentsViewModel}}, Path=DeleteCommentCommand}"
+                                             CommandParameter="{Binding}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame Margin="10,5" Padding="10">
+                                <Grid RowDefinitions="Auto,Auto,Auto">
+                                    <Label Text="{Binding Content}"
+                                           TextColor="Black"/>
+                                    <Label Grid.Row="1"
+                                           Text="{Binding AuthorName}"
+                                           FontSize="12"
+                                           TextColor="Gray"/>
+                                    <Label Grid.Row="2"
+                                           Text="{Binding CreatedAt, StringFormat='{0:g}'}"
+                                           FontSize="12"
+                                           TextColor="Gray"/>
+                                </Grid>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,Auto"
+              Padding="10">
+            <Entry Placeholder="Add a comment..."
+                   Text="{Binding NewCommentText}"/>
+            <Button Grid.Column="1"
+                    Text="Send"
+                    Command="{Binding AddCommentCommand}"/>
+        </Grid>
+    </Grid>
+</ContentView> 
