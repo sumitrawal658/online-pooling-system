@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OnlinePollingSystem.Mobile.Views.PollDetailsPage"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,*,Auto" 
+              Padding="20">
+            
+            <!-- Poll Title and Status -->
+            <StackLayout Grid.Row="0" 
+                         Spacing="10">
+                <Label Text="{Binding Poll.Title}"
+                       FontSize="24"
+                       FontAttributes="Bold"/>
+                <Label Text="{Binding Poll.TimeRemaining}"
+                       TextColor="Gray"/>
+                <Label Text="{Binding Poll.TotalVotes, StringFormat='{0} votes'}"
+                       TextColor="Gray"/>
+            </StackLayout>
+
+            <!-- Poll Description -->
+            <Label Grid.Row="1"
+                   Text="{Binding Poll.Description}"
+                   Margin="0,20,0,20"/>
+
+            <!-- Poll Options -->
+            <CollectionView Grid.Row="2"
+                          ItemsSource="{Binding Poll.Options}"
+                          SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,5" 
+                               Padding="15" 
+                               BorderColor="{StaticResource Primary}"
+                               CornerRadius="10">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Text="{Binding Text}"
+                                       VerticalOptions="Center"/>
+                                <Button Grid.Column="1"
+                                        Text="Vote"
+                                        Clicked="OnVoteClicked"
+                                        IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CanVote}"
+                                        BackgroundColor="{StaticResource Primary}"
+                                        TextColor="White"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Action Buttons -->
+            <StackLayout Grid.Row="3"
+                         Orientation="Horizontal"
+                         Spacing="10"
+                         Margin="0,20,0,0">
+                <Button Text="View Results"
+                        Clicked="OnViewResultsClicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="{StaticResource Secondary}"
+                        TextColor="White"/>
+                <Button Text="Comments"
+                        Clicked="OnViewCommentsClicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="{StaticResource Secondary}"
+                        TextColor="White"/>
+                <Button Text="Share"
+                        Clicked="OnShareClicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="{StaticResource Secondary}"
+                        TextColor="White"/>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage> 

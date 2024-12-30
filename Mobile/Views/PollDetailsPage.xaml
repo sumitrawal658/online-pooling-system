@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:PollSystem.Mobile.Views"
+             x:Class="PollSystem.Mobile.Views.PollDetailsPage">
+    <Grid RowDefinitions="Auto,Auto,*">
+        <!-- Poll Details -->
+        <StackLayout Grid.Row="0" Padding="10">
+            <Label Text="{Binding Poll.Title}"
+                   FontSize="24"
+                   FontAttributes="Bold"/>
+            <Label Text="{Binding Poll.CreatedAt, StringFormat='Created: {0:d}'}"
+                   TextColor="Gray"/>
+        </StackLayout>
+
+        <!-- Results Chart -->
+        <views:PollResultsChart Grid.Row="1"
+                              BindingContext="{Binding ResultsViewModel}"
+                              HeightRequest="300"/>
+
+        <!-- Comments Section -->
+        <views:CommentsView Grid.Row="2"
+                          BindingContext="{Binding CommentsViewModel}"/>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                          IsVisible="{Binding IsBusy}"
+                          Grid.RowSpan="3"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"/>
+    </Grid>
+</ContentPage> 

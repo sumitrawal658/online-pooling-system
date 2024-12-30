@@ -1,0 +1,135 @@
+.poll-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.poll-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.option-button {
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.option-button:hover {
+    border-color: #3498db;
+    background: #f7f9fc;
+}
+
+.option-button.selected {
+    border-color: #3498db;
+    background: #ebf5fb;
+    color: #2980b9;
+}
+
+.vote-button {
+    width: 100%;
+    padding: 1rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.vote-button:hover {
+    background: #2980b9;
+}
+
+.vote-button:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.results-container {
+    margin-top: 2rem;
+}
+
+.chart-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    height: 400px;
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bar-chart,
+.pie-chart {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.stats p {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: #7f8c8d;
+}
+
+.error {
+    text-align: center;
+    padding: 2rem;
+    color: #e74c3c;
+    background: #fdf0ed;
+    border-radius: 8px;
+}
+
+/* Animation classes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+} 

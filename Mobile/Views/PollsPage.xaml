@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PollSystem.Mobile.ViewModels"
+             x:Class="PollSystem.Mobile.Views.PollsPage"
+             Title="Active Polls">
+
+    <Grid RowDefinitions="Auto,*">
+        <Button Text="Create New Poll"
+                Command="{Binding CreatePollCommand}"
+                Margin="10"
+                HorizontalOptions="End"/>
+
+        <RefreshView Grid.Row="1"
+                    Command="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Polls}"
+                          SelectionMode="Single"
+                          SelectionChangedCommand="{Binding PollSelectedCommand}"
+                          SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="10,5" Padding="10">
+                            <Grid RowDefinitions="Auto,Auto,Auto">
+                                <Label Text="{Binding Title}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"/>
+                                
+                                <StackLayout Grid.Row="1" 
+                                           Orientation="Horizontal" 
+                                           Spacing="10">
+                                    <Label Text="{Binding IsActive, StringFormat='Status: {0}'}"
+                                           TextColor="{Binding IsActive, Converter={StaticResource BoolToColorConverter}}"/>
+                                    <Label Text="{Binding Options.Count, StringFormat='{0} options'}"/>
+                                </StackLayout>
+                                
+                                <Label Grid.Row="2"
+                                       Text="{Binding CreatedAt, StringFormat='Created: {0:d}'}"
+                                       TextColor="Gray"
+                                       FontSize="14"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center" 
+                               HorizontalOptions="Center">
+                        <Label Text="No active polls found"
+                               FontSize="18"
+                               TextColor="Gray"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                          IsVisible="{Binding IsLoading}"
+                          Grid.RowSpan="2"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"/>
+    </Grid>
+</ContentPage> 

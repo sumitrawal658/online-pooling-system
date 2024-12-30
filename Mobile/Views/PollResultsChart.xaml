@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             x:Class="PollSystem.Mobile.Views.PollResultsChart">
+    <Grid RowDefinitions="Auto,*">
+        <Label Text="Results"
+               FontSize="18"
+               FontAttributes="Bold"
+               Margin="10"/>
+
+        <chart:PieChart Grid.Row="1"
+                       Series="{Binding ChartSeries}"
+                       Title="{Binding Title}"
+                       LegendPosition="Right"/>
+    </Grid>
+</ContentView> 
